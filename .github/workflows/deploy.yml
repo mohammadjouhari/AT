@@ -31,6 +31,10 @@ jobs:
     - name: Publish Application
       run: dotnet publish --configuration Release --output ./publish --no-build
 
+     # 4b. Create app_offline.htm to unlock DLLs in IIS
+    - name: Create app_offline.htm
+      run: echo "Site Under Maintenance" > ./publish/app_offline.htm
+
     # 5. Deploy published files to MonsterASP.NET via FTP
     - name: FTP Deploy to MonsterASP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -42,3 +46,12 @@ jobs:
         server-dir: /wwwroot/               # Default web folder on MonsterASP
         protocol: ftps                           # Use FTPS (FTP over SSL)
         port: 21
+
+      # 6. Wait for IIS to finish locking/processing app_offline.htm
+    - name: Wait for IIS File Release
+      run: sleep 10
+
+    # 7. Remove app_offline.htm using curl
+    - name: Remove app_offline.htm
+      run: |
+        curl --ftp-ssl --insecure -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" -Q "-DELE /wwwroot/app_offline.htm" "ftps://${{ secrets.FTP_SERVER }}:21/" || true
