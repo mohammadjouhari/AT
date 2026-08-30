@@ -18,7 +18,7 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x' # Change to match your target .NET version (e.g., 6.0.x, 7.0.x, 9.0.x)
+        dotnet-version: '8.0.x'
 
     # 3. Restore dependencies & build project
     - name: Restore Dependencies
@@ -31,27 +31,41 @@ jobs:
     - name: Publish Application
       run: dotnet publish --configuration Release --output ./publish --no-build
 
-     # 4b. Create app_offline.htm to unlock DLLs in IIS
-    - name: Create app_offline.htm
-      run: echo "Site Under Maintenance" > ./publish/app_offline.htm
+    # 5. Prepare app_offline in a separate directory (NOT inside ./publish/)
+    - name: Prepare app_offline.htm
+      run: |
+        mkdir -p ./offline_temp
+        echo "<html><body><h2>Site Under Maintenance</h2></body></html>" > ./offline_temp/app_offline.htm
 
-    # 5. Deploy published files to MonsterASP.NET via FTP
-    - name: FTP Deploy to MonsterASP
+    # 6. Upload ONLY app_offline.htm first to shut down IIS app domain
+    - name: Upload app_offline.htm
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ${{ secrets.FTP_SERVER }}      # e.g., ftp.aesthetictoday.runasp.net
-        username: ${{ secrets.FTP_USERNAME }}    # MonsterASP FTP username
-        password: ${{ secrets.FTP_PASSWORD }}    # MonsterASP FTP password
-        local-dir: ./publish/                    # Folder containing published files
-        server-dir: /wwwroot/               # Default web folder on MonsterASP
-        protocol: ftps                           # Use FTPS (FTP over SSL)
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./offline_temp/
+        server-dir: /wwwroot/
+        protocol: ftps
         port: 21
 
-      # 6. Wait for IIS to finish locking/processing app_offline.htm
-    - name: Wait for IIS File Release
+    # 7. Pause to let IIS complete shutdown and release all DLL file handles
+    - name: Wait for IIS App Domain Shutdown
       run: sleep 10
 
-    # 7. Remove app_offline.htm using curl
+    # 8. Deploy main application files (excluding app_offline.htm)
+    - name: FTP Deploy Application to MonsterASP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./publish/
+        server-dir: /wwwroot/
+        protocol: ftps
+        port: 21
+
+    # 9. Delete app_offline.htm to bring site back online
     - name: Remove app_offline.htm
       run: |
         curl --ftp-ssl --insecure -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" -Q "-DELE /wwwroot/app_offline.htm" "ftps://${{ secrets.FTP_SERVER }}:21/" || true
