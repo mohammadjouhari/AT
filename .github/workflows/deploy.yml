@@ -31,6 +31,10 @@ jobs:
     - name: Publish Application
       run: dotnet publish --configuration Release --output ./publish --no-build
 
+     # 4b. Create app_offline.htm to unlock DLLs in IIS
+    - name: Create app_offline.htm
+      run: echo "Site Under Maintenance" > ./publish/app_offline.htm
+
     # 5. Deploy published files to MonsterASP.NET via FTP
     - name: FTP Deploy to MonsterASP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
