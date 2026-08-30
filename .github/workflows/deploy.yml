@@ -47,13 +47,7 @@ jobs:
         protocol: ftps                           # Use FTPS (FTP over SSL)
         port: 21
 
-        # 6. Remove app_offline.htm to bring site back online
+  # 6. Delete app_offline.htm using curl
     - name: Remove app_offline.htm
-      uses: cweagans/ftp-delete-action@v1.0.0
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        protocol: ftps
-        file-path: /wwwroot/app_offline.htm
-        ignore-missing: true
+      run: |
+        curl --ftp-ssl -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" -Q "DELE /wwwroot/app_offline.htm" "ftps://${{ secrets.FTP_SERVER }}:21" || true
