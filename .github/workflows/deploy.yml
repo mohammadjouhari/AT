@@ -39,6 +39,6 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}    # MonsterASP FTP username
         password: ${{ secrets.FTP_PASSWORD }}    # MonsterASP FTP password
         local-dir: ./publish/                    # Folder containing published files
-        server-dir: /site/wwwroot/               # Default web folder on MonsterASP
+        server-dir: wwwroot/               # Default web folder on MonsterASP
         protocol: ftps                           # Use FTPS (FTP over SSL)
         port: 21
