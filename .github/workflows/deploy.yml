@@ -1,0 +1,44 @@
+name: Deploy to MonsterASP.NET
+
+on:
+  push:
+    branches:
+      - main # Change to 'master' if your main branch is master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout repository code
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 2. Setup .NET SDK
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x' # Change to match your target .NET version (e.g., 6.0.x, 7.0.x, 9.0.x)
+
+    # 3. Restore dependencies & build project
+    - name: Restore Dependencies
+      run: dotnet restore
+
+    - name: Build Application
+      run: dotnet build --configuration Release --no-restore
+
+    # 4. Publish application binaries to output directory
+    - name: Publish Application
+      run: dotnet publish --configuration Release --output ./publish --no-build
+
+    # 5. Deploy published files to MonsterASP.NET via FTP
+    - name: FTP Deploy to MonsterASP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}      # e.g., ftp.aesthetictoday.runasp.net
+        username: ${{ secrets.FTP_USERNAME }}    # MonsterASP FTP username
+        password: ${{ secrets.FTP_PASSWORD }}    # MonsterASP FTP password
+        local-dir: ./publish/                    # Folder containing published files
+        server-dir: /site/wwwroot/               # Default web folder on MonsterASP
+        protocol: ftps                           # Use FTPS (FTP over SSL)
+        port: 21
