@@ -179,6 +179,22 @@
     .swiper-pagination-bullet-active {
       background: #0d6efd;
     }
+
+    #heroCarousel .carousel-indicators [data-bs-target] {
+      width: 12px !important;
+      height: 12px !important;
+      border-radius: 50% !important;
+      border: 0 !important;
+      background-color: #000 !important;
+      opacity: 0.3;
+      margin: 0 5px !important;
+      transition: all 0.3s ease;
+    }
+
+    #heroCarousel .carousel-indicators .active {
+      opacity: 1 !important;
+      transform: scale(1.25);
+    }
     </style>
 </head>
 <body>
@@ -302,72 +318,64 @@
 
     <!-- 4. Hero Banner / Carousel -->
 <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-  <!-- Slide Indicators -->
-  <div class="carousel-indicators mb-0">
-    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-  </div>
+    <div class="carousel-indicators mb-3">
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    </div>
 
-  <div class="carousel-inner">
-    <!-- Slide 1 -->
-            <div class="carousel-item active">
-              <div class="p-4 p-md-5 bg-light rounded-0" style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); min-height: 320px;">
-                <div class="container py-2">
-                  <div class="row align-items-center gy-4">
-                    <!-- Left Text Content -->
-                    <div class="col-md-7 text-center text-md-start">
-                      <span class="text-uppercase text-muted letter-spacing-2 small d-block mb-1">Luxury Skincare Collection</span>
-                      <h1 class="display-5 fw-bold mt-1">Reveal Your Natural Glow</h1>
-                      <p class="lead mb-4 text-secondary">Discover dermatologist-approved formulas for radiant skin.</p>
-                      <a href="#" class="btn btn-dark rounded-0 px-4 py-2 text-uppercase fw-semibold">Shop Best Sellers</a>
-                    </div>
-                    <!-- Right Featured Image -->
-                    <div class="col-md-5 text-center">
-                      <img src="https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/QjRGZmV4cWg3eW9y.jpg" 
-                           alt="Luxury Skincare Products" 
-                           class="img-fluid rounded shadow-sm" 
-                           style="max-height: 260px; object-fit: cover;">
-                    </div>
-                  </div>
-                </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="p-4 p-md-5 bg-light rounded-0" style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); min-height: 320px;">
+          <div class="container py-2">
+            <div class="row align-items-center gy-4">
+              <div class="col-md-7 text-center text-md-start">
+                <span class="text-uppercase text-muted letter-spacing-2 small d-block mb-1">Luxury Skincare Collection</span>
+                <h1 class="display-5 fw-bold mt-1">Reveal Your Natural Glow</h1>
+                <p class="lead mb-4 text-secondary">Discover dermatologist-approved formulas for radiant skin.</p>
+                <a href="#" class="btn btn-dark rounded-0 px-4 py-2 text-uppercase fw-semibold">Shop Best Sellers</a>
               </div>
-            </div>
-
-            <!-- Slide 2 (Example Additional Slide) -->
-            <div class="carousel-item">
-              <div class="p-4 p-md-5 bg-light rounded-0" style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); min-height: 320px;">
-                <div class="container py-2">
-                  <div class="row align-items-center gy-4">
-                    <div class="col-md-7 text-center text-md-start">
-                      <span class="text-uppercase text-muted letter-spacing-2 small d-block mb-1">Organic & Botanical</span>
-                      <h1 class="display-5 fw-bold mt-1">Pure Hydration Boost</h1>
-                      <p class="lead mb-4 text-secondary">Formulated with natural botanical extracts for deep nourishment.</p>
-                      <a href="#" class="btn btn-dark rounded-0 px-4 py-2 text-uppercase fw-semibold">Explore Serums</a>
-                    </div>
-                    <div class="col-md-5 text-center">
-                      <img src="https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/aXk3Z2U5S0lFeHJP.jpg" 
-                           alt="Serum Bottles" 
-                           class="img-fluid rounded shadow-sm" 
-                           style="max-height: 260px; object-fit: cover;">
-                    </div>
-                  </div>
-                </div>
+              <div class="col-md-5 text-center">
+                <img src="https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/QjRGZmV4cWg3eW9y.jpg" 
+                     alt="Luxury Skincare Products" 
+                     class="img-fluid rounded shadow-sm" 
+                     style="max-height: 260px; object-fit: cover;">
               </div>
             </div>
           </div>
-
-          <!-- Left (Previous) Control -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-
-          <!-- Right (Next) Control -->
-          <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
         </div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="p-4 p-md-5 bg-light rounded-0" style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); min-height: 320px;">
+          <div class="container py-2">
+            <div class="row align-items-center gy-4">
+              <div class="col-md-7 text-center text-md-start">
+                <span class="text-uppercase text-muted letter-spacing-2 small d-block mb-1">Organic & Botanical</span>
+                <h1 class="display-5 fw-bold mt-1">Pure Hydration Boost</h1>
+                <p class="lead mb-4 text-secondary">Formulated with natural botanical extracts for deep nourishment.</p>
+                <a href="#" class="btn btn-dark rounded-0 px-4 py-2 text-uppercase fw-semibold">Explore Serums</a>
+              </div>
+              <div class="col-md-5 text-center">
+                <img src="https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/aXk3Z2U5S0lFeHJP.jpg" 
+                     alt="Serum Bottles" 
+                     class="img-fluid rounded shadow-sm" 
+                     style="max-height: 260px; object-fit: cover;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 
 
 
