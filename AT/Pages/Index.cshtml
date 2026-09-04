@@ -10,195 +10,223 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aesthetic Today - Beauty & Skincare</title>
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
-            :root {
-                --at-primary: #1a1a1a;
-                --at-accent: #d4a373;
-                --at-bg-light: #f8f9fa;
-            }
-            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-            .top-bar { background-color: #f5f5f5; font-size: 0.85rem; }
-            .navbar-brand { font-weight: 700; letter-spacing: 1.5px; }
-            .search-box input { border-radius: 20px 0 0 20px; }
-            .search-box button { border-radius: 0 20px 20px 0; }
-            .product-card { transition: transform 0.2s, box-shadow 0.2s; border: 1px solid #eee; }
-            .product-card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-            .badge-discount { position: absolute; top: 10px; left: 10px; background-color: #dc3545; }
-            .badge-bestseller { position: absolute; top: 10px; right: 10px; background-color: var(--at-accent); }
+        :root {
+            --at-primary: #1a1a1a;
+            --at-accent: #d4a373;
+            --at-bg-light: #f8f9fa;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .top-bar { background-color: #f5f5f5; font-size: 0.85rem; }
+        .navbar-brand { font-weight: 700; letter-spacing: 1.5px; }
+        .search-box input { border-radius: 20px 0 0 20px; }
+        .search-box button { border-radius: 0 20px 20px 0; }
+        .product-card { transition: transform 0.2s, box-shadow 0.2s; border: 1px solid #eee; cursor: pointer; }
+        .product-card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .badge-discount { position: absolute; top: 10px; left: 10px; background-color: #dc3545; z-index: 2; }
+        .badge-bestseller { position: absolute; top: 10px; right: 10px; background-color: var(--at-accent); z-index: 2; }
         
-            /* Left Panel Filter Styling */
-            .filter-sidebar {
-                background-color: #ffffff;
-                border: 1px solid #e9ecef;
-                border-radius: 8px;
-                padding: 1.25rem;
+        /* Left Panel Filter Styling */
+        .filter-sidebar {
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+        .filter-group .list-group-item {
+            border: none;
+            padding: 0.6rem 0.75rem;
+            border-radius: 6px !important;
+            color: #495057;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .filter-group .list-group-item:hover {
+            background-color: var(--at-bg-light);
+            color: var(--at-primary);
+        }
+        .filter-group .list-group-item.active {
+            background-color: var(--at-primary);
+            color: #ffffff;
+        }
+        .filter-group .list-group-item.active .badge {
+            background-color: #ffffff !important;
+            color: var(--at-primary) !important;
+        }
+
+        /* Custom Pagination Styling */
+        .pagination .page-link {
+            color: var(--at-primary);
+            border-color: #dee2e6;
+            cursor: pointer;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: var(--at-primary);
+            border-color: var(--at-primary);
+            color: #fff;
+        }
+        .pagination .page-link:hover {
+            color: var(--at-accent);
+        }
+        .mega-dropdown-parent {
+            position: static !important;
+        }
+
+        .mega-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1050;
+            border-top: 2px solid #ffc107;
+        }
+
+        .mega-dropdown-parent:hover .mega-dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        .hover-white:hover {
+            color: #fff !important;
+            text-decoration: underline !important;
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
             }
-            .filter-group .list-group-item {
-                border: none;
-                padding: 0.6rem 0.75rem;
-                border-radius: 6px !important;
-                color: #495057;
-                font-weight: 500;
-                cursor: pointer;
-                transition: all 0.2s ease;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-            .filter-group .list-group-item:hover {
-                background-color: var(--at-bg-light);
-                color: var(--at-primary);
-            }
-            .filter-group .list-group-item.active {
-                background-color: var(--at-primary);
-                color: #ffffff;
-            }
-            .filter-group .list-group-item.active .badge {
-                background-color: #ffffff !important;
-                color: var(--at-primary) !important;
-            }
+        }
 
-            /* Custom Pagination Styling */
-            .pagination .page-link {
-                color: var(--at-primary);
-                border-color: #dee2e6;
-                cursor: pointer;
-            }
-            .pagination .page-item.active .page-link {
-                background-color: var(--at-primary);
-                border-color: var(--at-primary);
-                color: #fff;
-            }
-            .pagination .page-link:hover {
-                color: var(--at-accent);
-            }
-            .mega-dropdown-parent {
-                    position: static !important;
-                }
+        .product-card {
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #ffffff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
 
-                .mega-dropdown-menu {
-                    display: none;
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    right: 0;
-                    width: 100%;
-                    z-index: 1050;
-                    border-top: 2px solid #ffc107;
-                }
+        .product-card:hover {
+            border-color: #0d6efd;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
 
-                /* Hover trigger specifically for the parent item */
-                .mega-dropdown-parent:hover .mega-dropdown-menu {
-                    display: block;
-                    animation: fadeIn 0.2s ease-in-out;
-                }
+        .product-img-wrapper {
+            position: relative;
+            height: 220px;
+            padding: 16px;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-                .hover-white:hover {
-                    color: #fff !important;
-                    text-decoration: underline !important;
-                }
+        .product-img-wrapper img {
+            max-height: 100%;
+            width: auto;
+            object-fit: contain;
+            transition: opacity 0.2s ease;
+        }
 
-                @@keyframes fadeIn {
-                    from {
-                        opacity: 0;
-                        transform: translateY(5px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-                 .product-card {
-      border: 1px solid #eaeaea;
-      border-radius: 12px;
-      overflow: hidden;
-      background-color: #ffffff;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
+        .product-card:hover .product-img-wrapper img {
+            opacity: 0.9;
+        }
 
-    .product-card:hover {
-      border-color: #0d6efd;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-    }
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
 
-    /* Uniform Image Container */
-    .product-img-wrapper {
-      position: relative;
-      height: 220px;
-      padding: 16px;
-      background-color: #f9f9f9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .swiper {
+            padding: 10px 10px 50px 10px;
+        }
 
-    .product-img-wrapper img {
-      max-height: 100%;
-      width: auto;
-      object-fit: contain;
-      transition: opacity 0.2s ease;
-    }
+        .swiper-button-next, .swiper-button-prev {
+            color: #0d6efd;
+            background: #ffffff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
 
-    .product-card:hover .product-img-wrapper img {
-      opacity: 0.9;
-    }
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 18px;
+            font-weight: bold;
+        }
 
-    .product-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 4px 8px;
-      border-radius: 6px;
-      text-transform: uppercase;
-    }
+        .swiper-pagination-bullet-active {
+            background: #0d6efd;
+        }
 
-    /* Slider Spacing & Navigation Customization */
-    .swiper {
-      padding: 10px 10px 50px 10px;
-    }
+        #heroCarousel .carousel-indicators [data-bs-target] {
+            width: 12px !important;
+            height: 12px !important;
+            border-radius: 50% !important;
+            border: 0 !important;
+            background-color: #000 !important;
+            opacity: 0.3;
+            margin: 0 5px !important;
+            transition: all 0.3s ease;
+        }
 
-    .swiper-button-next, .swiper-button-prev {
-      color: #0d6efd;
-      background: #ffffff;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
+        #heroCarousel .carousel-indicators .active {
+            opacity: 1 !important;
+            transform: scale(1.25);
+        }
 
-    .swiper-button-next:after, .swiper-button-prev:after {
-      font-size: 18px;
-      font-weight: bold;
-    }
+        /* Modal Gallery Styling */
+        .modal-gallery-main {
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 10px;
+        }
 
-    .swiper-pagination-bullet-active {
-      background: #0d6efd;
-    }
+        .modal-gallery-main img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
 
-    #heroCarousel .carousel-indicators [data-bs-target] {
-      width: 12px !important;
-      height: 12px !important;
-      border-radius: 50% !important;
-      border: 0 !important;
-      background-color: #000 !important;
-      opacity: 0.3;
-      margin: 0 5px !important;
-      transition: all 0.3s ease;
-    }
+        .modal-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: border-color 0.2s ease, opacity 0.2s ease;
+            opacity: 0.7;
+        }
 
-    #heroCarousel .carousel-indicators .active {
-      opacity: 1 !important;
-      transform: scale(1.25);
-    }
+        .modal-thumb:hover, .modal-thumb.active {
+            border-color: var(--at-primary);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
-    <!-- 1. Top Announcement Bar -->
     <div class="top-bar py-1 text-center text-secondary border-bottom">
         <div class="container d-flex justify-content-between align-items-center">
             <span><i class="bi bi-truck me-1"></i> Free Express Shipping on orders above $50</span>
@@ -217,7 +245,6 @@
         </div>
     </div>
 
-    <!-- 2. Main Navigation Header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
         <div class="container">
             <a class="navbar-brand text-uppercase me-4" href="#">AESTHETIC TODAY</a>
@@ -226,7 +253,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Search Bar -->
             <div class="search-box flex-grow-1 mx-lg-4 my-2 my-lg-0 max-w-500">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search brands, products, skincare...">
@@ -234,7 +260,6 @@
                 </div>
             </div>
 
-            <!-- User Actions -->
             <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                 <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
                     <a href="#" class="text-dark text-decoration-none d-flex align-items-center">
@@ -254,332 +279,267 @@
         </div>
     </nav>
 
-    <!-- 3. Category Bar -->
-    <div class="bg-dark text-white ">
+    <div class="bg-dark text-white">
         <div class="container">
             <ul class="nav nav-fill text-uppercase small position-relative">
-            
-            <li class="nav-item"><a class="nav-link text-white py-2" href="#">Brands</a></li>
-            
-            <!-- Skincare Item with Wide Dropdown -->
-            <li class="nav-item mega-dropdown-parent">
-                <a class="nav-link text-white py-2 dropdown-toggle" href="#">Skincare</a>
-                
-                <!-- Mega Dropdown Menu -->
-                <div class="mega-dropdown-menu bg-dark text-white p-4 shadow-lg">
-                    <div class="container">
-                        <div class="row text-start text-capitalize">
-                            <div class="col-md-3">
-                                <h6 class="text-warning fw-bold mb-3">By Category</h6>
-                                <ul class="list-unstyled mb-0">
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Cleansers</a></li>
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Moisturizers</a></li>
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Serums & Treatments</a></li>
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Sunscreen (SPF)</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="text-warning fw-bold mb-3">By Skin Concern</h6>
-                                <ul class="list-unstyled mb-0">
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Acne & Blemishes</a></li>
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Anti-Aging & Wrinkles</a></li>
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Dryness & Hydration</a></li>
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Hyperpigmentation</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="text-warning fw-bold mb-3">Trending Ingredients</h6>
-                                <ul class="list-unstyled mb-0">
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Hyaluronic Acid</a></li>
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Niacinamide</a></li>
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Retinol & Vitamin A</a></li>
-                                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Vitamin C</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="bg-secondary p-3 rounded text-center">
-                                    <p class="fw-bold text-white mb-1">Skincare Routine</p>
-                                    <span class="small text-white-50 d-block mb-2">Build your custom 4-step daily regimen.</span>
-                                    <a href="#" class="btn btn-warning btn-sm fw-bold">Start Quiz</a>
+                <li class="nav-item"><a class="nav-link text-white py-2" href="#">Brands</a></li>
+                <li class="nav-item mega-dropdown-parent">
+                    <a class="nav-link text-white py-2 dropdown-toggle" href="#">Skincare</a>
+                    <div class="mega-dropdown-menu bg-dark text-white p-4 shadow-lg">
+                        <div class="container">
+                            <div class="row text-start text-capitalize">
+                                <div class="col-md-3">
+                                    <h6 class="text-warning fw-bold mb-3">By Category</h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Cleansers</a></li>
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Moisturizers</a></li>
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Serums & Treatments</a></li>
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Sunscreen (SPF)</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <h6 class="text-warning fw-bold mb-3">By Skin Concern</h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Acne & Blemishes</a></li>
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Anti-Aging & Wrinkles</a></li>
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Dryness & Hydration</a></li>
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Hyperpigmentation</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <h6 class="text-warning fw-bold mb-3">Trending Ingredients</h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Hyaluronic Acid</a></li>
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Niacinamide</a></li>
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Retinol & Vitamin A</a></li>
+                                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Vitamin C</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="bg-secondary p-3 rounded text-center">
+                                        <p class="fw-bold text-white mb-1">Skincare Routine</p>
+                                        <span class="small text-white-50 d-block mb-2">Build your custom 4-step daily regimen.</span>
+                                        <a href="#" class="btn btn-warning btn-sm fw-bold">Start Quiz</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </li>
-
-            <li class="nav-item"><a class="nav-link text-white py-2" href="#">Haircare</a></li>
-            <li class="nav-item"><a class="nav-link text-white py-2" href="#">Makeup</a></li>
-            <li class="nav-item"><a class="nav-link text-white py-2" href="#">Fragrance</a></li>
-            <li class="nav-item"><a class="nav-link text-warning py-2 fw-bold" href="#">Offers & Sales</a></li>
-        </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link text-white py-2" href="#">Haircare</a></li>
+                <li class="nav-item"><a class="nav-link text-white py-2" href="#">Makeup</a></li>
+                <li class="nav-item"><a class="nav-link text-white py-2" href="#">Fragrance</a></li>
+                <li class="nav-item"><a class="nav-link text-warning py-2 fw-bold" href="#">Offers & Sales</a></li>
+            </ul>
         </div>
     </div>
 
-    <!-- 4. Hero Banner / Carousel -->
-<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators mb-3">
-      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    </div>
-
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="p-4 p-md-5 bg-light rounded-0" style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); min-height: 320px;">
-          <div class="container py-2">
-            <div class="row align-items-center gy-4">
-              <div class="col-md-7 text-center text-md-start">
-                <span class="text-uppercase text-muted letter-spacing-2 small d-block mb-1">Luxury Skincare Collection</span>
-                <h1 class="display-5 fw-bold mt-1">Reveal Your Natural Glow</h1>
-                <p class="lead mb-4 text-secondary">Discover dermatologist-approved formulas for radiant skin.</p>
-                <a href="#" class="btn btn-dark rounded-0 px-4 py-2 text-uppercase fw-semibold">Shop Best Sellers</a>
-              </div>
-              <div class="col-md-5 text-center">
-                <img src="https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/QjRGZmV4cWg3eW9y.jpg" 
-                     alt="Luxury Skincare Products" 
-                     class="img-fluid rounded shadow-sm" 
-                     style="max-height: 260px; object-fit: cover;">
-              </div>
-            </div>
-          </div>
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators mb-3">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
         </div>
-      </div>
 
-      <div class="carousel-item">
-        <div class="p-4 p-md-5 bg-light rounded-0" style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); min-height: 320px;">
-          <div class="container py-2">
-            <div class="row align-items-center gy-4">
-              <div class="col-md-7 text-center text-md-start">
-                <span class="text-uppercase text-muted letter-spacing-2 small d-block mb-1">Organic & Botanical</span>
-                <h1 class="display-5 fw-bold mt-1">Pure Hydration Boost</h1>
-                <p class="lead mb-4 text-secondary">Formulated with natural botanical extracts for deep nourishment.</p>
-                <a href="#" class="btn btn-dark rounded-0 px-4 py-2 text-uppercase fw-semibold">Explore Serums</a>
-              </div>
-              <div class="col-md-5 text-center">
-                <img src="https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/aXk3Z2U5S0lFeHJP.jpg" 
-                     alt="Serum Bottles" 
-                     class="img-fluid rounded shadow-sm" 
-                     style="max-height: 260px; object-fit: cover;">
-              </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="p-4 p-md-5 bg-light rounded-0" style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); min-height: 320px;">
+                    <div class="container py-2">
+                        <div class="row align-items-center gy-4">
+                            <div class="col-md-7 text-center text-md-start">
+                                <span class="text-uppercase text-muted letter-spacing-2 small d-block mb-1">Luxury Skincare Collection</span>
+                                <h1 class="display-5 fw-bold mt-1">Reveal Your Natural Glow</h1>
+                                <p class="lead mb-4 text-secondary">Discover dermatologist-approved formulas for radiant skin.</p>
+                                <a href="#" class="btn btn-dark rounded-0 px-4 py-2 text-uppercase fw-semibold">Shop Best Sellers</a>
+                            </div>
+                            <div class="col-md-5 text-center">
+                                <img src="https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/QjRGZmV4cWg3eW9y.jpg" alt="Luxury Skincare Products" class="img-fluid rounded shadow-sm" style="max-height: 260px; object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+
+            <div class="carousel-item">
+                <div class="p-4 p-md-5 bg-light rounded-0" style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); min-height: 320px;">
+                    <div class="container py-2">
+                        <div class="row align-items-center gy-4">
+                            <div class="col-md-7 text-center text-md-start">
+                                <span class="text-uppercase text-muted letter-spacing-2 small d-block mb-1">Organic & Botanical</span>
+                                <h1 class="display-5 fw-bold mt-1">Pure Hydration Boost</h1>
+                                <p class="lead mb-4 text-secondary">Formulated with natural botanical extracts for deep nourishment.</p>
+                                <a href="#" class="btn btn-dark rounded-0 px-4 py-2 text-uppercase fw-semibold">Explore Serums</a>
+                            </div>
+                            <div class="col-md-5 text-center">
+                                <img src="https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/aXk3Z2U5S0lFeHJP.jpg" alt="Serum Bottles" class="img-fluid rounded shadow-sm" style="max-height: 260px; object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-
-
-
-<section class="py-5">
-  <div class="container position-relative">
-    
-    <!-- Section Header -->
-    <div class="row mb-4 text-center">
-      <div class="col-lg-6 mx-auto">
-        <h2 class="fw-bold">Featured Products</h2>
-        <p class="text-muted">Handpicked top items trending this week.</p>
-      </div>
-    </div>
-
-    <!-- Bootstrap Grid: Banner on the Left, Swiper Slider on the Right -->
-    <div class="row align-items-stretch g-4">
-      
-      <!-- Static Banner Column (Not included in Swiper) -->
-      <div class="col-md-4 col-lg-3">
-        <a href="https://www.aesthetictoday.com/c/face-care/?sort=discount" class="promotion-banner d-block h-100">
-          <img 
-            class="w-100 h-100 rounded object-fit-cover" 
-            src="https://storage.googleapis.com/atoday-cdn/uploads/media/10/24/bWhQZEhzNU95SWdx.webp" 
-            alt="Face Care" 
-          />
-        </a>
-      </div>
-
-      <!-- Swiper Slider Column -->
-      <div class="col-md-8 col-lg-9">
-        <div class="swiper product-slider h-100">
-          <div class="swiper-wrapper">
-
-            <!-- Product 1 -->
-            <div class="swiper-slide">
-              <div class="card product-card h-100">
-                <div class="product-img-wrapper">
-                  <span class="badge bg-danger product-badge">Hot</span>
-                  <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" alt="Organic Facial Serum" />
+    <section class="py-5">
+        <div class="container position-relative">
+            <div class="row mb-4 text-center">
+                <div class="col-lg-6 mx-auto">
+                    <h2 class="fw-bold">Featured Products</h2>
+                    <p class="text-muted">Handpicked top items trending this week.</p>
                 </div>
-                <div class="card-body d-flex flex-column text-center">
-                  <span class="text-muted small text-uppercase mb-1">Skincare</span>
-                  <h5 class="card-title fs-6 fw-semibold mb-2">Organic Facial Serum</h5>
-                  <div class="mt-auto pt-2">
-                    <div class="mb-2">
-                      <span class="fs-5 fw-bold text-primary">$29.99</span>
-                      <span class="text-decoration-line-through text-muted small ms-1">$39.99</span>
+            </div>
+
+            <div class="row align-items-stretch g-4">
+                <div class="col-md-4 col-lg-3">
+                    <a href="https://www.aesthetictoday.com/c/face-care/?sort=discount" class="promotion-banner d-block h-100">
+                        <img class="w-100 h-100 rounded object-fit-cover" src="https://storage.googleapis.com/atoday-cdn/uploads/media/10/24/bWhQZEhzNU95SWdx.webp" alt="Face Care" />
+                    </a>
+                </div>
+
+                <div class="col-md-8 col-lg-9">
+                    <div class="swiper product-slider h-100">
+                        <div class="swiper-wrapper">
+
+                            <div class="swiper-slide">
+                                <div class="card product-card h-100" 
+                                     data-bs-toggle="modal" 
+                                     data-bs-target="#productDetailModal"
+                                     data-title="Organic Facial Serum"
+                                     data-brand="The Ordinary"
+                                     data-price="$29.99"
+                                     data-old-price="$39.99"
+                                     data-category="Skincare"
+                                     data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp", "https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/aXk3Z2U5S0lFeHJP.jpg", "https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/QjRGZmV4cWg3eW9y.jpg"]'
+                                     data-description="Water-free solution containing 0.5% pure Retinol to reduce fine lines and general skin aging.">
+                                    <div class="product-img-wrapper">
+                                        <span class="badge bg-danger product-badge">Hot</span>
+                                        <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" alt="Organic Facial Serum" />
+                                    </div>
+                                    <div class="card-body d-flex flex-column text-center">
+                                        <span class="text-muted small text-uppercase mb-1">Skincare</span>
+                                        <h5 class="card-title fs-6 fw-semibold mb-2">Organic Facial Serum</h5>
+                                        <div class="mt-auto pt-2">
+                                            <div class="mb-2">
+                                                <span class="fs-5 fw-bold text-primary">$29.99</span>
+                                                <span class="text-decoration-line-through text-muted small ms-1">$39.99</span>
+                                            </div>
+                                            <button class="btn btn-outline-primary btn-sm w-100 fw-medium"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="card product-card h-100"
+                                     data-bs-toggle="modal" 
+                                     data-bs-target="#productDetailModal"
+                                     data-title="Hydrating Face Cream"
+                                     data-brand="CeraVe"
+                                     data-price="$24.50"
+                                     data-old-price=""
+                                     data-category="Moisturizer"
+                                     data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp", "https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/QjRGZmV4cWg3eW9y.jpg"]'
+                                     data-description="Rich daily moisturizing cream formulated with essential ceramides to restore skin's protective barrier.">
+                                    <div class="product-img-wrapper">
+                                        <span class="badge bg-success product-badge">New</span>
+                                        <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" alt="Hydrating Cream" />
+                                    </div>
+                                    <div class="card-body d-flex flex-column text-center">
+                                        <span class="text-muted small text-uppercase mb-1">Moisturizer</span>
+                                        <h5 class="card-title fs-6 fw-semibold mb-2">Hydrating Face Cream</h5>
+                                        <div class="mt-auto pt-2">
+                                            <div class="mb-2">
+                                                <span class="fs-5 fw-bold text-primary">$24.50</span>
+                                            </div>
+                                            <button class="btn btn-outline-primary btn-sm w-100 fw-medium"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="card product-card h-100"
+                                     data-bs-toggle="modal" 
+                                     data-bs-target="#productDetailModal"
+                                     data-title="Gentle Foaming Cleanser"
+                                     data-brand="La Roche-Posay"
+                                     data-price="$18.00"
+                                     data-old-price=""
+                                     data-category="Cleanser"
+                                     data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp"]'
+                                     data-description="Sulfate-free foaming facial wash designed for sensitive skin types, removing impurity without drying.">
+                                    <div class="product-img-wrapper">
+                                        <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" alt="Gentle Cleanser" />
+                                    </div>
+                                    <div class="card-body d-flex flex-column text-center">
+                                        <span class="text-muted small text-uppercase mb-1">Cleanser</span>
+                                        <h5 class="card-title fs-6 fw-semibold mb-2">Gentle Foaming Cleanser</h5>
+                                        <div class="mt-auto pt-2">
+                                            <div class="mb-2">
+                                                <span class="fs-5 fw-bold text-primary">$18.00</span>
+                                            </div>
+                                            <button class="btn btn-outline-primary btn-sm w-100 fw-medium"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="card product-card h-100"
+                                     data-bs-toggle="modal" 
+                                     data-bs-target="#productDetailModal"
+                                     data-title="Nourishing Botanical Oil"
+                                     data-brand="Raghad Organics"
+                                     data-price="$34.00"
+                                     data-old-price="$45.00"
+                                     data-category="Face Oil"
+                                     data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp", "https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/aXk3Z2U5S0lFeHJP.jpg"]'
+                                     data-description="Cold-pressed pure facial oil packed with essential antioxidants and fatty acids to revive dull skin.">
+                                    <div class="product-img-wrapper">
+                                        <span class="badge bg-warning text-dark product-badge">Sale</span>
+                                        <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" alt="Nourishing Oil" />
+                                    </div>
+                                    <div class="card-body d-flex flex-column text-center">
+                                        <span class="text-muted small text-uppercase mb-1">Face Oil</span>
+                                        <h5 class="card-title fs-6 fw-semibold mb-2">Nourishing Botanical Oil</h5>
+                                        <div class="mt-auto pt-2">
+                                            <div class="mb-2">
+                                                <span class="fs-5 fw-bold text-primary">$34.00</span>
+                                                <span class="text-decoration-line-through text-muted small ms-1">$45.00</span>
+                                            </div>
+                                            <button class="btn btn-outline-primary btn-sm w-100 fw-medium"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
-                    <button class="btn btn-outline-primary btn-sm w-100 fw-medium">Add to Cart</button>
-                  </div>
                 </div>
-              </div>
             </div>
-
-            <!-- Product 2 -->
-            <div class="swiper-slide">
-              <div class="card product-card h-100">
-                <div class="product-img-wrapper">
-                  <span class="badge bg-success product-badge">New</span>
-                  <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" alt="Hydrating Cream" />
-                </div>
-                <div class="card-body d-flex flex-column text-center">
-                  <span class="text-muted small text-uppercase mb-1">Moisturizer</span>
-                  <h5 class="card-title fs-6 fw-semibold mb-2">Hydrating Face Cream</h5>
-                  <div class="mt-auto pt-2">
-                    <div class="mb-2">
-                      <span class="fs-5 fw-bold text-primary">$24.50</span>
-                    </div>
-                    <button class="btn btn-outline-primary btn-sm w-100 fw-medium">Add to Cart</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="swiper-slide">
-              <div class="card product-card h-100">
-                <div class="product-img-wrapper">
-                  <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" alt="Gentle Cleanser" />
-                </div>
-                <div class="card-body d-flex flex-column text-center">
-                  <span class="text-muted small text-uppercase mb-1">Cleanser</span>
-                  <h5 class="card-title fs-6 fw-semibold mb-2">Gentle Foaming Cleanser</h5>
-                  <div class="mt-auto pt-2">
-                    <div class="mb-2">
-                      <span class="fs-5 fw-bold text-primary">$18.00</span>
-                    </div>
-                    <button class="btn btn-outline-primary btn-sm w-100 fw-medium">Add to Cart</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="swiper-slide">
-              <div class="card product-card h-100">
-                <div class="product-img-wrapper">
-                  <span class="badge bg-warning text-dark product-badge">Sale</span>
-                  <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" alt="Nourishing Oil" />
-                </div>
-                <div class="card-body d-flex flex-column text-center">
-                  <span class="text-muted small text-uppercase mb-1">Face Oil</span>
-                  <h5 class="card-title fs-6 fw-semibold mb-2">Nourishing Botanical Oil</h5>
-                  <div class="mt-auto pt-2">
-                    <div class="mb-2">
-                      <span class="fs-5 fw-bold text-primary">$34.00</span>
-                      <span class="text-decoration-line-through text-muted small ms-1">$45.00</span>
-                    </div>
-                    <button class="btn btn-outline-primary btn-sm w-100 fw-medium">Add to Cart</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-                 <div class="swiper-slide">
-              <div class="card product-card h-100">
-                <div class="product-img-wrapper">
-                  <span class="badge bg-warning text-dark product-badge">Sale</span>
-                  <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" alt="Nourishing Oil" />
-                </div>
-                <div class="card-body d-flex flex-column text-center">
-                  <span class="text-muted small text-uppercase mb-1">Face Oil</span>
-                  <h5 class="card-title fs-6 fw-semibold mb-2">Nourishing Botanical Oil</h5>
-                  <div class="mt-auto pt-2">
-                    <div class="mb-2">
-                      <span class="fs-5 fw-bold text-primary">$34.00</span>
-                      <span class="text-decoration-line-through text-muted small ms-1">$45.00</span>
-                    </div>
-                    <button class="btn btn-outline-primary btn-sm w-100 fw-medium">Add to Cart</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-                 <div class="swiper-slide">
-              <div class="card product-card h-100">
-                <div class="product-img-wrapper">
-                  <span class="badge bg-warning text-dark product-badge">Sale</span>
-                  <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" alt="Nourishing Oil" />
-                </div>
-                <div class="card-body d-flex flex-column text-center">
-                  <span class="text-muted small text-uppercase mb-1">Face Oil</span>
-                  <h5 class="card-title fs-6 fw-semibold mb-2">Nourishing Botanical Oil</h5>
-                  <div class="mt-auto pt-2">
-                    <div class="mb-2">
-                      <span class="fs-5 fw-bold text-primary">$34.00</span>
-                      <span class="text-decoration-line-through text-muted small ms-1">$45.00</span>
-                    </div>
-                    <button class="btn btn-outline-primary btn-sm w-100 fw-medium">Add to Cart</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-                 <div class="swiper-slide">
-              <div class="card product-card h-100">
-                <div class="product-img-wrapper">
-                  <span class="badge bg-warning text-dark product-badge">Sale</span>
-                  <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" alt="Nourishing Oil" />
-                </div>
-                <div class="card-body d-flex flex-column text-center">
-                  <span class="text-muted small text-uppercase mb-1">Face Oil</span>
-                  <h5 class="card-title fs-6 fw-semibold mb-2">Nourishing Botanical Oil</h5>
-                  <div class="mt-auto pt-2">
-                    <div class="mb-2">
-                      <span class="fs-5 fw-bold text-primary">$34.00</span>
-                      <span class="text-decoration-line-through text-muted small ms-1">$45.00</span>
-                    </div>
-                    <button class="btn btn-outline-primary btn-sm w-100 fw-medium">Add to Cart</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            </div>
-
-
-
-          </div>
-
-          <!-- Pagination Dots & Navigation Arrows -->
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
         </div>
-      </div>
+    </section>
 
-    </div>
-  </div>
-</section>
-
-    <!-- 5. Featured Products Grid Section with Left Panel -->
     <section class="py-4 container">
         <div class="row g-4">
             
-            <!-- LEFT PANEL: Category Sidebar -->
             <aside class="col-lg-3">
                 <div class="filter-sidebar shadow-sm">
                     <h5 class="fw-bold mb-3 d-flex align-items-center">
                         <i class="bi bi-funnel me-2 fs-6"></i> Categories
                     </h5>
                     
-                    <!-- Isotope Filter List Group -->
                     <div class="list-group filter-group" id="categoryFilterPanel">
                         <button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active" data-filter="*">
                             <span><i class="bi bi-grid-fill me-2"></i> All Products</span>
@@ -601,18 +561,24 @@
                 </div>
             </aside>
 
-            <!-- RIGHT PANEL: Products Grid -->
             <main class="col-lg-9">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h3 class="fw-bold mb-0">Trending Products</h3>
                 </div>
 
-                <!-- Isotope Grid Container -->
                 <div class="row g-4" id="productGrid">
                     
-                    <!-- Product Card 1 -->
                     <div class="col-12 col-sm-6 col-md-4 grid-item skincare">
-                        <div class="card h-100 product-card rounded-3">
+                        <div class="card h-100 product-card rounded-3"
+                             data-bs-toggle="modal" 
+                             data-bs-target="#productDetailModal"
+                             data-title="Hydrating Hyaluronic Acid Serum 30ml"
+                             data-brand="CeraVe"
+                             data-price="$19.99"
+                             data-old-price="$24.99"
+                             data-category="Skincare"
+                             data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp", "https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/aXk3Z2U5S0lFeHJP.jpg", "https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/QjRGZmV4cWg3eW9y.jpg"]'
+                             data-description="Formulated with 3 essential ceramides and hyaluronic acid to lock in moisture and protect skin.">
                             <span class="badge badge-discount rounded-pill">-20%</span>
                             <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Hydrating Serum">
                             <div class="card-body d-flex flex-column">
@@ -629,71 +595,25 @@
                         </div>
                     </div>
 
-                    <!-- Product Card 2 -->
                     <div class="col-12 col-sm-6 col-md-4 grid-item treatment">
-                        <div class="card h-100 product-card rounded-3">
+                        <div class="card h-100 product-card rounded-3"
+                             data-bs-toggle="modal" 
+                             data-bs-target="#productDetailModal"
+                             data-title="Niacinamide 10% + Zinc 1%"
+                             data-brand="The Ordinary"
+                             data-price="$12.50"
+                             data-old-price=""
+                             data-category="Treatment"
+                             data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp", "https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/QjRGZmV4cWg3eW9y.jpg"]'
+                             data-description="High-strength vitamin and mineral formula targeting skin congestion, visible blemishes, and excess sebum.">
                             <span class="badge badge-bestseller rounded-pill">Best Seller</span>
-                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Moisturizing Cream">
-                            <div class="card-body d-flex flex-column">
-                                <small class="text-muted text-uppercase">La Roche-Posay</small>
-                                <h6 class="card-title fw-semibold mt-1">Effaclar Duo Dual Action Acne Treatment</h6>
-                                <div class="mt-auto">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="fw-bold text-dark">$29.99</span>
-                                    </div>
-                                    <button class="btn btn-outline-dark btn-sm w-100 rounded-pill"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 3 -->
-                    <div class="col-12 col-sm-6 col-md-4 grid-item skincare">
-                        <div class="card h-100 product-card rounded-3">
-                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Sunscreen SPF 50">
-                            <div class="card-body d-flex flex-column">
-                                <small class="text-muted text-uppercase">Vichy</small>
-                                <h6 class="card-title fw-semibold mt-1">Capital Soleil UV-Clear Anti-Imperfections SPF50+</h6>
-                                <div class="mt-auto">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="fw-bold text-dark">$22.50</span>
-                                    </div>
-                                    <button class="btn btn-outline-dark btn-sm w-100 rounded-pill"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 4 -->
-                    <div class="col-12 col-sm-6 col-md-4 grid-item cleanser">
-                        <div class="card h-100 product-card rounded-3">
-                            <span class="badge badge-discount rounded-pill">-15%</span>
-                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Foaming Cleanser">
-                            <div class="card-body d-flex flex-column">
-                                <small class="text-muted text-uppercase">Bioderma</small>
-                                <h6 class="card-title fw-semibold mt-1">Sensibio H2O Micellar Water Makeup Remover</h6>
-                                <div class="mt-auto">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="fw-bold text-dark">$14.45</span>
-                                        <span class="text-muted text-decoration-line-through small">$17.00</span>
-                                    </div>
-                                    <button class="btn btn-outline-dark btn-sm w-100 rounded-pill"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 5 -->
-                    <div class="col-12 col-sm-6 col-md-4 grid-item treatment">
-                        <div class="card h-100 product-card rounded-3">
-                            <span class="badge badge-bestseller rounded-pill">Best Seller</span>
-                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Retinol Night Serum">
+                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Niacinamide">
                             <div class="card-body d-flex flex-column">
                                 <small class="text-muted text-uppercase">The Ordinary</small>
-                                <h6 class="card-title fw-semibold mt-1">Retinol 0.5% in Squalane Intensive Night Treatment</h6>
+                                <h6 class="card-title fw-semibold mt-1">Niacinamide 10% + Zinc 1%</h6>
                                 <div class="mt-auto">
                                     <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="fw-bold text-dark">$11.80</span>
+                                        <span class="fw-bold text-dark">$12.50</span>
                                     </div>
                                     <button class="btn btn-outline-dark btn-sm w-100 rounded-pill"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
                                 </div>
@@ -701,16 +621,24 @@
                         </div>
                     </div>
 
-                    <!-- Product Card 6 -->
                     <div class="col-12 col-sm-6 col-md-4 grid-item cleanser">
-                        <div class="card h-100 product-card rounded-3">
-                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Gentle Cleansing Gel">
+                        <div class="card h-100 product-card rounded-3"
+                             data-bs-toggle="modal" 
+                             data-bs-target="#productDetailModal"
+                             data-title="Purifying Foaming Cleansing Gel"
+                             data-brand="La Roche-Posay"
+                             data-price="$16.00"
+                             data-old-price=""
+                             data-category="Cleanser"
+                             data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp"]'
+                             data-description="Purifies oily skin gently without drying effects due to rigorously selected cleansing agents.">
+                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Cleansing Gel">
                             <div class="card-body d-flex flex-column">
-                                <small class="text-muted text-uppercase">Avene</small>
-                                <h6 class="card-title fw-semibold mt-1">Cleanance Soapless Gel Cleanser 200ml</h6>
+                                <small class="text-muted text-uppercase">La Roche-Posay</small>
+                                <h6 class="card-title fw-semibold mt-1">Purifying Foaming Cleansing Gel</h6>
                                 <div class="mt-auto">
                                     <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="fw-bold text-dark">$18.50</span>
+                                        <span class="fw-bold text-dark">$16.00</span>
                                     </div>
                                     <button class="btn btn-outline-dark btn-sm w-100 rounded-pill"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
                                 </div>
@@ -718,18 +646,26 @@
                         </div>
                     </div>
 
-                    <!-- Product Card 7 -->
                     <div class="col-12 col-sm-6 col-md-4 grid-item skincare">
-                        <div class="card h-100 product-card rounded-3">
-                            <span class="badge badge-discount rounded-pill">-10%</span>
-                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Vitamin C Serum">
+                        <div class="card h-100 product-card rounded-3"
+                             data-bs-toggle="modal" 
+                             data-bs-target="#productDetailModal"
+                             data-title="Advanced Snail 96 Mucin Essence"
+                             data-brand="COSRX"
+                             data-price="$21.00"
+                             data-old-price="$28.00"
+                             data-category="Skincare"
+                             data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp", "https://storage.googleapis.com/atoday-cdn/uploads/media/04/25/aXk3Z2U5S0lFeHJP.jpg"]'
+                             data-description="Lightweight essence that absorbs quickly into skin for a natural, healthy glow while repairing dry patches.">
+                            <span class="badge badge-discount rounded-pill">-25%</span>
+                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Snail Essence">
                             <div class="card-body d-flex flex-column">
-                                <small class="text-muted text-uppercase">Paula's Choice</small>
-                                <h6 class="card-title fw-semibold mt-1">C15 Super Booster Vitamin C Brightening Essence</h6>
+                                <small class="text-muted text-uppercase">COSRX</small>
+                                <h6 class="card-title fw-semibold mt-1">Advanced Snail 96 Mucin Essence</h6>
                                 <div class="mt-auto">
                                     <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="fw-bold text-dark">$46.80</span>
-                                        <span class="text-muted text-decoration-line-through small">$52.00</span>
+                                        <span class="fw-bold text-dark">$21.00</span>
+                                        <span class="text-muted text-decoration-line-through small">$28.00</span>
                                     </div>
                                     <button class="btn btn-outline-dark btn-sm w-100 rounded-pill"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
                                 </div>
@@ -737,16 +673,99 @@
                         </div>
                     </div>
 
-                    <!-- Product Card 8 -->
                     <div class="col-12 col-sm-6 col-md-4 grid-item treatment">
-                        <div class="card h-100 product-card rounded-3">
-                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Niacinamide Serum">
+                        <div class="card h-100 product-card rounded-3"
+                             data-bs-toggle="modal" 
+                             data-bs-target="#productDetailModal"
+                             data-title="Retinol 0.5% in Squalane"
+                             data-brand="The Ordinary"
+                             data-price="$14.99"
+                             data-old-price=""
+                             data-category="Treatment"
+                             data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp"]'
+                             data-description="Water-free solution containing 0.5% pure Retinol to reduce fine lines and general skin aging.">
+                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Retinol">
                             <div class="card-body d-flex flex-column">
-                                <small class="text-muted text-uppercase">Niacinamide Co</small>
-                                <h6 class="card-title fw-semibold mt-1">Niacinamide 10% + Zinc 1% Pore Refining Solution</h6>
+                                <small class="text-muted text-uppercase">The Ordinary</small>
+                                <h6 class="card-title fw-semibold mt-1">Retinol 0.5% in Squalane</h6>
                                 <div class="mt-auto">
                                     <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="fw-bold text-dark">$13.50</span>
+                                        <span class="fw-bold text-dark">$14.99</span>
+                                    </div>
+                                    <button class="btn btn-outline-dark btn-sm w-100 rounded-pill"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 grid-item cleanser">
+                        <div class="card h-100 product-card rounded-3"
+                             data-bs-toggle="modal" 
+                             data-bs-target="#productDetailModal"
+                             data-title="Salicylic Acid Daily Gentle Cleanser"
+                             data-brand="COSRX"
+                             data-price="$15.50"
+                             data-old-price=""
+                             data-category="Cleanser"
+                             data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp"]'
+                             data-description="Micro-bubble cleanser formulated with botanical ingredients and Salicylic Acid to exfoliate dead skin cells.">
+                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Salicylic Cleanser">
+                            <div class="card-body d-flex flex-column">
+                                <small class="text-muted text-uppercase">COSRX</small>
+                                <h6 class="card-title fw-semibold mt-1">Salicylic Acid Daily Gentle Cleanser</h6>
+                                <div class="mt-auto">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="fw-bold text-dark">$15.50</span>
+                                    </div>
+                                    <button class="btn btn-outline-dark btn-sm w-100 rounded-pill"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 grid-item skincare">
+                        <div class="card h-100 product-card rounded-3"
+                             data-bs-toggle="modal" 
+                             data-bs-target="#productDetailModal"
+                             data-title="Daily Moisturizing Lotion"
+                             data-brand="CeraVe"
+                             data-price="$17.99"
+                             data-old-price=""
+                             data-category="Skincare"
+                             data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp"]'
+                             data-description="Lightweight oil-free moisturizer with 3 essential ceramides that provides 24-hour hydration.">
+                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Moisturizing Lotion">
+                            <div class="card-body d-flex flex-column">
+                                <small class="text-muted text-uppercase">CeraVe</small>
+                                <h6 class="card-title fw-semibold mt-1">Daily Moisturizing Lotion</h6>
+                                <div class="mt-auto">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="fw-bold text-dark">$17.99</span>
+                                    </div>
+                                    <button class="btn btn-outline-dark btn-sm w-100 rounded-pill"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 grid-item treatment">
+                        <div class="card h-100 product-card rounded-3"
+                             data-bs-toggle="modal" 
+                             data-bs-target="#productDetailModal"
+                             data-title="Glycolic Acid 7% Toning Solution"
+                             data-brand="The Ordinary"
+                             data-price="$13.00"
+                             data-old-price=""
+                             data-category="Treatment"
+                             data-images='["https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp"]'
+                             data-description="Alpha hydroxy acid exfoliating solution that offers mild exfoliation for improved skin radiance and clarity.">
+                            <img src="https://jo.raghadorganics.com/wp-content/uploads/2024/12/105-01-scaled-1-600x600.webp" class="card-img-top p-3" alt="Glycolic Acid">
+                            <div class="card-body d-flex flex-column">
+                                <small class="text-muted text-uppercase">The Ordinary</small>
+                                <h6 class="card-title fw-semibold mt-1">Glycolic Acid 7% Toning Solution</h6>
+                                <div class="mt-auto">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="fw-bold text-dark">$13.00</span>
                                     </div>
                                     <button class="btn btn-outline-dark btn-sm w-100 rounded-pill"><i class="bi bi-cart-plus me-1"></i> Add to Cart</button>
                                 </div>
@@ -756,332 +775,241 @@
 
                 </div>
 
-                <!-- Dynamic Pagination Section -->
-                <nav aria-label="Product navigation" class="mt-5">
-                    <ul class="pagination justify-content-center" id="paginationControls"></ul>
+                <nav aria-label="Product pagination" class="mt-5">
+                    <ul class="pagination justify-content-center" id="gridPagination">
+                        </ul>
                 </nav>
             </main>
         </div>
     </section>
 
-    <!-- 6. Footer -->
-<footer class="footer bg-white d-none d-lg-block">
-  <div class="container-fluid bg-lg-light py-lg-5">
-  <div class="row py-3">
-    <div class="col-lg-3 text-center text-md-start">
-    </div>
-    <div class="col-lg-9">
-      <div class="row">
+    <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="modal-gallery-main mb-3">
+                                <img id="modalProductImage" src="" alt="Main Product Image">
+                            </div>
+                            <div id="modalGalleryThumbnails" class="d-flex gap-2 justify-content-center flex-wrap">
+                                </div>
+                        </div>
 
-        <div class="col-12 col-xs-6 col-sm-6 col-md-4 col-lg-3 pt-3 pt-lg-0">
+                        <div class="col-md-6 d-flex flex-column">
+                            <span id="modalProductCategory" class="badge bg-light text-dark border align-self-start mb-2">Category</span>
+                            <small id="modalProductBrand" class="text-muted text-uppercase fw-bold">Brand</small>
+                            <h4 id="modalProductTitle" class="fw-bold my-1">Product Title</h4>
+                            
+                            <div class="d-flex align-items-center gap-2 my-2">
+                                <span id="modalProductPrice" class="fs-4 fw-bold text-primary">$0.00</span>
+                                <span id="modalProductOldPrice" class="text-muted text-decoration-line-through small d-none">$0.00</span>
+                            </div>
 
-          <div class="accordion-item border-0 rounded-0">
-  <h2 class="accordion-header">
-    <button class="accordion-button bg-white bg-lg-light text-dark bg-after-lg-none " type="button" data-bs-toggle="collapse" data-bs-target="#accordian_section_2" aria-expanded="true" aria-controls="accordian_section_2">TOP LINKS</button>
-  </h2>
-  <div id="accordian_section_2" class="accordion-collapse accordion-open-lg collapse show">
-    <div class="accordion-body bg-lg-light py-2">
-      <ul class="list-unstyled text-small mb-0">
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/c/face-moisturizers/">Face Moisturizers</a></li>
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/c/serums/">Serums</a></li>
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/c/whitening/">Whitening</a></li>
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/c/sunscreen/">Sunscreen</a></li>
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/c/body-lotions-creams/">Body Lotions &amp; Creams</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
+                            <p id="modalProductDescription" class="text-secondary small my-3">Product Description...</p>
 
+                            <div class="mt-auto">
+                                <button class="btn btn-dark btn-lg w-100 rounded-pill"><i class="bi bi-bag-plus me-2"></i> Add to Shopping Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-12 col-xs-6 col-sm-6 col-md-4 col-lg-3 pt-3 pt-lg-0">
-
-          <div class="accordion-item border-0 rounded-0">
-  <h2 class="accordion-header">
-    <button class="accordion-button bg-white bg-lg-light text-dark bg-after-lg-none " type="button" data-bs-toggle="collapse" data-bs-target="#accordian_section_3" aria-expanded="true" aria-controls="accordian_section_3">TOP BRANDS</button>
-  </h2>
-  <div id="accordian_section_3" class="accordion-collapse accordion-open-lg collapse show">
-    <div class="accordion-body bg-lg-light py-2">
-      <ul class="list-unstyled text-small mb-0">
-                  <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/brand/obagi/">Obagi</a></li>
-                  <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/brand/gk-hair/">GK Hair</a></li>
-                  <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/brand/isdin/">Isdin</a></li>
-                  <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/brand/esthederm/">Esthederm</a></li>
-                  <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/brand/med-schrammek/">Med Schrammek</a></li>
-                  <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/brand/novexpert/">Novexpert</a></li>
-              </ul>
-    </div>
-  </div>
-</div>
-
-        </div>
-        <div class="col-12 col-xs-6 col-sm-6 col-md-4 col-lg-3 pt-3 pt-lg-0">
-
-          <div class="accordion-item border-0 rounded-0">
-  <h2 class="accordion-header">
-    <button class="accordion-button bg-white bg-lg-light text-dark bg-after-lg-none " type="button" data-bs-toggle="collapse" data-bs-target="#accordian_section_4" aria-expanded="true" aria-controls="accordian_section_4">HELP</button>
-  </h2>
-  <div id="accordian_section_4" class="accordion-collapse accordion-open-lg collapse show">
-    <div class="accordion-body bg-lg-light py-2">
-      <ul class="list-unstyled text-small mb-0">
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/faq/">FAQs</a></li>
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/delivery-and-returns/">Delivery &amp; Returns</a></li>
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/privacy-policy/">Privacy Policy</a></li>
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/terms-and-conditions/">Terms &amp; Conditions</a></li>
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/about/">About Us</a></li>
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/contact/">Contact Us</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-        </div>
-        <div class="col-12 col-xs-6 col-sm-6 col-md-4 col-lg-3 pt-3 pt-lg-0">
-
-          <div class="accordion-item border-0 rounded-0">
-  <h2 class="accordion-header">
-    <button class="accordion-button bg-white bg-lg-light text-dark bg-after-lg-none " type="button" data-bs-toggle="collapse" data-bs-target="#accordian_section_5" aria-expanded="true" aria-controls="accordian_section_5">MY ACCOUNT</button>
-  </h2>
-  <div id="accordian_section_5" class="accordion-collapse accordion-open-lg collapse show">
-    <div class="accordion-body bg-lg-light py-2">
-
-      <ul class="list-unstyled text-small mb-0">
-                 <li class="mb-1"><a data-bs-toggle="offcanvas" data-bs-target="#login" aria-controls="login" class="link-secondary text-decoration-none c-pointer">Login/Register</a></li>
-        <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/cart/">Cart</a></li>
-        <li class="mb-1"><a data-bs-toggle="offcanvas" data-bs-target="#login" aria-controls="login" class="link-secondary text-decoration-none c-pointer">Orders</a></li>
-              </ul>
-
-    </div>
-  </div>
-</div>
-
-<div class="text-center text-md-start py-3 py-md-0">
-  <h6 class="pt-3 text-uppercase">WE ACCEPT</h6>
-  <div class="row no-gutter">
-    <div class="col-7 col-sm-10 col-md-10 col-lg-12 col-xl-10 col-xxl-8 mx-auto mx-md-0">
-      <img class="mw-100 mb-1" src="https://storage.googleapis.com/atoday-cdn/uploads/media/04/13/bjhUMFU5Zm1oaUFa.svg" alt="Payment methods">
-      <img class="mw-100 mb-1" src="https://storage.googleapis.com/atoday-cdn/uploads/media/02/01/S1BuMVhSek1yZHhM.svg" alt="Payment methods">
-      <img class="invisible" src="https://www.aesthetictoday.com/assets/img/icons/at-logo-icon-animate.svg" alt="loader" width="1" height="1">
-    </div>
-  </div>
-</div>
-
-
-      <h6 class="pt-3">DOWNLOAD OUR APPS</h6>
-<div class="row">
-  <div class="col-5 col-sm-4 col-md-3 col-lg-6 col-xl-5 mx-auto mx-md-0">
-    <a href="https://apple.co/2UG37zZ" target="_blank">
-      <img class="w-100" src="https://storage.googleapis.com/atoday-cdn/uploads/media/08/02/Z1AzRW5iNUxJY2Ry.webp" alt="Aesthetic Today - App Store">
-    </a>
-  </div>
-  <div class="col-5 col-sm-4 col-md-3 col-lg-6 col-xl-5 mx-auto mx-md-0">
-    <a href="https://play.google.com/store/apps/details?id=com.aesthetictoday.mobile" target="_blank">
-      <img class="w-100" src="https://storage.googleapis.com/atoday-cdn/uploads/media/08/02/UnZYZXI3MzBsT0RL.webp" alt="Aesthetic Today - Play Store">
-    </a>
-  </div>
-</div>
-<div class="py-3 py-md-0">
-  <h6 class="pt-3 pt-lg-4">KEEP IN TOUCH</h6>
-  <div class="btn-group">
-    <a href="https://www.facebook.com/AestheticToday/" target="_blank" class="btn no-effects rounded-0">
-  <img class="icon" src="https://www.aesthetictoday.com/assets/img/icons/social-icons/fb.svg?v=1.1">
-</a>
-<a href="https://www.instagram.com/aesthetictoday/" target="_blank" class="btn no-effects rounded-0 ms-1">
-  <img class="icon" src="https://www.aesthetictoday.com/assets/img/icons/social-icons/in.svg?v=1.1">
-</a>
-  </div>
-</div>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-  <div class="fixed-bottom bg-light d-flex d-lg-none pb-1">
-
-    <div class="container-lg footer-icon-nav text-center p-0">
-      <div class="row g-0">
-                  <div class="col">
-            <a class="d-flex flex-column align-items-center pt-2" href="https://www.aesthetictoday.com/">
-              <img class="s-icon" src="https://storage.googleapis.com/atoday-cdn/assets/img/icons/home.svg" alt="Home">
-              <span class="small">Home</span>
-            </a>
-          </div>
-                  <div class="col">
-            <a class="d-flex flex-column align-items-center pt-2" href="https://www.aesthetictoday.com/brands/">
-              <img class="s-icon" src="https://storage.googleapis.com/atoday-cdn/assets/img/icons/a-z.svg" alt="Brands">
-              <span class="small">Brands</span>
-            </a>
-          </div>
-                  <div class="col">
-            <a class="d-flex flex-column align-items-center pt-2" href="https://www.aesthetictoday.com/category/">
-              <img class="s-icon" src="https://storage.googleapis.com/atoday-cdn/assets/img/icons/list.svg" alt="Category">
-              <span class="small">Category</span>
-            </a>
-          </div>
-                  <div class="col">
-            <a class="d-flex flex-column align-items-center pt-2" href="https://www.aesthetictoday.com/cart/">
-              <img class="s-icon" src="https://storage.googleapis.com/atoday-cdn/assets/img/icons/cart.svg" alt="Cart">
-              <span class="small">Cart</span>
-            </a>
-          </div>
-                                  <div class="col">
-            <a data-bs-toggle="offcanvas" data-bs-target="#login" aria-controls="login" class="d-flex flex-column align-items-center pt-2 c-pointer">
-              <img class="s-icon" src="https://storage.googleapis.com/atoday-cdn/assets/img/icons/account.svg" alt="Login">
-              <span class="small">Login</span>
-            </a>
-          </div>
-                      </div>
     </div>
 
-  </div>
-
-  <div class="text-muted text-center text-small py-3 mb-5 my-lg-0">
-    <p class="mb-1">© 2023 <a class="link-secondary text-decoration-none" href="https://www.aesthetictoday.com/">Aesthetic Today</a>.</p>
-      </div>
-
-</footer>
-
-    <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    
-    <!-- Isotope JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
     <script>
-     $(document).ready(function() {
-        const itemsPerPage = 4;
-        let currentPage = 1;
-        let currentFilter = '*';
-
-        // Initialize Isotope
-        var $grid = $('#productGrid').isotope({
-            itemSelector: '.grid-item',
-            layoutMode: 'fitRows',
-            percentPosition: true
+        // Initialize Swiper
+        const swiper = new Swiper('.product-slider', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                576: { slidesPerView: 2 },
+                992: { slidesPerView: 3 }
+            }
         });
 
+        // Initialize Isotope & Pagination Setup
+        const grid = document.querySelector('#productGrid');
+        const paginationContainer = document.querySelector('#gridPagination');
+        const itemsPerPage = 3;
+        let currentPage = 1;
+        let currentFilter = '*';
+        let iso;
+
         function getFilteredItems() {
-            if (currentFilter === '*') {
-                return $('.grid-item');
-            }
-            return $('.grid-item' + currentFilter);
+            const allItems = Array.from(grid.querySelectorAll('.grid-item'));
+            if (currentFilter === '*') return allItems;
+            const filterClass = currentFilter.replace('.', '');
+            return allItems.filter(item => item.classList.contains(filterClass));
         }
 
-        function applyPagination() {
-            var $filteredItems = getFilteredItems();
-            var totalItems = $filteredItems.length;
-            var totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
-
-            if (currentPage > totalPages) currentPage = totalPages;
-            if (currentPage < 1) currentPage = 1;
-
-            var startIndex = (currentPage - 1) * itemsPerPage;
-            var endIndex = startIndex + itemsPerPage;
-
-            // Combine category filter with page slice range
-            $grid.isotope({
-                filter: function() {
-                    var $this = $(this);
-                    var matchesFilter = (currentFilter === '*') || $this.is(currentFilter);
-                    if (!matchesFilter) return false;
-
-                    var index = $filteredItems.index(this);
-                    return index >= startIndex && index < endIndex;
-                }
-            });
-            renderPaginationControls(totalPages);
-        }
-
-        function renderPaginationControls(totalPages) {
-            var $pagination = $('#paginationControls');
-            $pagination.empty();
-
+        function updatePaginationUI(totalPages) {
+            paginationContainer.innerHTML = '';
             if (totalPages <= 1) return;
 
             // Previous Button
-            var prevClass = currentPage === 1 ? 'disabled' : '';
-            $pagination.append(`
-                                <li class="page-item ${prevClass}">
-                                <a class="page-link" data-page="${currentPage - 1}">Previous</a>
-                                </li>
-                                `);
+            const prevLi = document.createElement('li');
+            prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+            prevLi.innerHTML = `<a class="page-link" href="#" aria-label="Previous">&laquo;</a>`;
+            prevLi.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    applyPageFilter();
+                }
+            });
+            paginationContainer.appendChild(prevLi);
 
-            // Page Number Buttons
-            for (var i = 1; i <= totalPages; i++) {
-                var activeClass = currentPage === i ? 'active' : '';
-                $pagination.append(`
-                                <li class="page-item ${activeClass}">
-                                <a class="page-link" data-page="${i}">${i}</a>
-                                </li>
-                                `);
-                                        }
+            // Page Numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement('li');
+                li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+                li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                li.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = i;
+                    applyPageFilter();
+                });
+                paginationContainer.appendChild(li);
+            }
 
             // Next Button
-            var nextClass = currentPage === totalPages ? 'disabled' : '';
-            $pagination.append(`
-                                    <li class="page-item ${nextClass}">
-                                    <a class="page-link" data-page="${currentPage + 1}">Next</a>
-                                    </li>
-                                    `);
-                                        }
+            const nextLi = document.createElement('li');
+            nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+            nextLi.innerHTML = `<a class="page-link" href="#" aria-label="Next">&raquo;</a>`;
+            nextLi.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    applyPageFilter();
+                }
+            });
+            paginationContainer.appendChild(nextLi);
+        }
 
-        // Left Sidebar Category Event Handler
-        $('#categoryFilterPanel').on('click', '.list-group-item', function() {
-            currentFilter = $(this).attr('data-filter');
-            currentPage = 1;
+        function applyPageFilter() {
+            const filteredItems = getFilteredItems();
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
-            $('#categoryFilterPanel .list-group-item').removeClass('active');
-            $(this).addClass('active');
-
-            applyPagination();
-        });
-
-        // Pagination Click Event Handler
-        $('#paginationControls').on('click', 'a.page-link', function(e) {
-            e.preventDefault();
-            var targetPage = parseInt($(this).attr('data-page'));
-            if (targetPage && targetPage !== currentPage) {
-                currentPage = targetPage;
-                applyPagination();
+            if (currentPage > totalPages && totalPages > 0) {
+                currentPage = 1;
             }
-        });
 
-        // Initial Execution
-        applyPagination();
-    });
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const visibleItemsOnPage = new Set(filteredItems.slice(startIndex, endIndex));
+
+            iso.arrange({
+                filter: function(itemElem) {
+                    return visibleItemsOnPage.has(itemElem);
+                }
+            });
+
+            updatePaginationUI(totalPages);
+        }
+
+        if (grid) {
+            iso = new Isotope(grid, {
+                itemSelector: '.grid-item',
+                layoutMode: 'fitRows'
+            });
+
+            applyPageFilter();
+
+            const filterPanel = document.querySelector('#categoryFilterPanel');
+            if (filterPanel) {
+                filterPanel.addEventListener('click', function(e) {
+                    const button = e.target.closest('button');
+                    if (!button) return;
+
+                    currentFilter = button.getAttribute('data-filter');
+                    currentPage = 1;
+                    applyPageFilter();
+
+                    filterPanel.querySelectorAll('.list-group-item').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            }
+        }
+
+        // Handle Modal Data & Gallery Population
+        const productModal = document.getElementById('productDetailModal');
+        if (productModal) {
+            productModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const card = button.closest('.product-card') || button;
+
+                const title = card.getAttribute('data-title');
+                const brand = card.getAttribute('data-brand');
+                const price = card.getAttribute('data-price');
+                const oldPrice = card.getAttribute('data-old-price');
+                const category = card.getAttribute('data-category');
+                const description = card.getAttribute('data-description');
+                
+                let images = [];
+                try {
+                    images = JSON.parse(card.getAttribute('data-images')) || [];
+                } catch (e) {
+                    const singleImg = card.getAttribute('data-image');
+                    if (singleImg) images = [singleImg];
+                }
+
+                document.getElementById('modalProductTitle').textContent = title || '';
+                document.getElementById('modalProductBrand').textContent = brand || '';
+                document.getElementById('modalProductPrice').textContent = price || '';
+                document.getElementById('modalProductCategory').textContent = category || '';
+                document.getElementById('modalProductDescription').textContent = description || '';
+
+                const mainImage = document.getElementById('modalProductImage');
+                const thumbContainer = document.getElementById('modalGalleryThumbnails');
+                thumbContainer.innerHTML = '';
+
+                if (images.length > 0) {
+                    mainImage.src = images[0];
+
+                    images.forEach((imgSrc, idx) => {
+                        const thumb = document.createElement('img');
+                        thumb.src = imgSrc;
+                        thumb.className = `modal-thumb ${idx === 0 ? 'active' : ''}`;
+                        thumb.alt = `Thumbnail ${idx + 1}`;
+
+                        thumb.addEventListener('click', function () {
+                            mainImage.src = imgSrc;
+                            thumbContainer.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
+                            this.classList.add('active');
+                        });
+
+                        thumbContainer.appendChild(thumb);
+                    });
+                } else {
+                    mainImage.src = '';
+                }
+
+                const oldPriceElem = document.getElementById('modalProductOldPrice');
+                if (oldPrice && oldPrice.trim() !== '') {
+                    oldPriceElem.textContent = oldPrice;
+                    oldPriceElem.classList.remove('d-none');
+                } else {
+                    oldPriceElem.classList.add('d-none');
+                }
+            });
+        }
     </script>
-     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-  <script>
-    const swiper = new Swiper('.product-slider', {
-      slidesPerView: 1,
-      spaceBetween: 24,
-      loop: true,
-      autoplay: {
-        delay: 3500,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      // Responsive Breakpoints
-      breakpoints: {
-        576: { slidesPerView: 2 },
-        768: { slidesPerView: 3 },
-        1200: { slidesPerView: 4 }
-      }
-    });
-  </script>
 </body>
 </html>
